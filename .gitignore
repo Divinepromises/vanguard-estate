@@ -1,0 +1,13 @@
+# Ignore virtual environments and node modules
+env/
+venv/
+node_modules/
+
+# Ignore Python cache and database files for production safety
+__pycache__/
+*.pyc
+db.sqlite3
+
+# Ignore IDE files
+.vscode/
+

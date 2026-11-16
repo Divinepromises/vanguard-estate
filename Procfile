@@ -1,0 +1,1 @@
+web: gunicorn vanguard.wsgi --log-file -

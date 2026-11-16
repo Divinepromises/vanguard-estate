@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+
+{% block title %}Properties - Django Estate{% endblock %}
+
+{% block content %}
+<!-- The hero section -->
+<section class="hero prop_hero">
+    <div class="big">
+        Active Deal Room
+    </div>
+    <div class="small">
+        Browse verified real estate opportunities. Every listing has undergone rigorous legal and financial due diligence.
+    </div>
+</section>
+<form class="search_bar_cont" method="get">
+    <input class="search-bar" type="search" placeholder="Search  by Location(e.g Okoyi, Lekki)..." value="{{request.GET.search}}" name="search">
+    <i class="fa-solid fa-search"></i>
+
+    <select class="filter-type" name="property_type" on_change="this.form.submit()">
+        <option value="" >All types</option>
+        {% for key, label in property_types %}
+        <option value="{{ key }}" {% if request.GET.property_type == key %}selected{% endif %}>
+            {{label}}
+        </option>
+        {% endfor %}
+    </select>
+    <div class="filter">
+        <i class="fa-solid fa-sliders"></i>    
+        More Filters
+    </div>
+</form>
+
+
+
+
+<section class="prop_deals">
+    
+    <div class="property-container">
+        <!-- 1. The Loop (For Each House in Our Box) -->
+        {% for property in properties %}
+        <div class="property-card">
+    
+            <!-- Display Main Image -->
+            {% if property.main_image %}
+            
+            <img src="{{ property.main_image.url }}" alt="{{ property.title }}" >
+            <div class="prop-type">{{property.property_type}}</div>
+        
+            {% endif %}
+    
+            <!-- Display Title and Location -->
+            <div class="house-det">
+                <h2>{{ property.title }}</h2>
+                <p class="location"><i class="fa-solid fa-location-dot"></i>{{ property.full_location }}</p>
+                <!-- Display Price -->
+                 {% load humanize %}
+                <p id="prc">
+                    <span>Price</span>
+                     <span class="prc">₦{{ property.price |floatformat:2 | intcomma}}</span>
+                </p>
+            
+            </div>
+    
+      
+            <!-- See More About Property -->
+            <a href="{% url 'property_detail' property.pk %}" class="see_more">See More About Property</a>
+        </div>
+        {% empty %}
+        <!-- What to show if no houses are in the database -->
+        <p>No properties available right now. Check back soon!</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

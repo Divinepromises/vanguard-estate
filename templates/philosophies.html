@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Investment Philosophy- Django Estate{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/philosophy.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- The hero section -->
+<section class="hero ph_hero">
+
+    <div class="bigT">
+        The Vanguard Philosophy
+    </div>
+    <div class="smallT grey">
+        We believe global capital deserves secure, high-yield havens. We transform Nigerian real estate from a
+        speculative frontier into a verified, quantitative asset class.
+    </div>
+
+</section>
+
+
+<section class="info">
+    <div class="wealth-trap">
+        <i class="fa-solid fa-building-columns"></i>
+        <h2 class="wht">
+            The Wealth Trap
+        </h2>
+        <p class="grey">
+            Traditional bank savings in the developed world yield 3-5% annually. Meanwhile, global inflation erodes
+            purchasing power at 4-7%. Leaving capital in standard accounts guarantees a loss of real wealth over a
+            decade.
+        </p>
+    </div>
+    <div class="land-equity">
+        <i class="fa-solid fa-arrow-trend-up"></i>
+        <h2 class="wht">
+            The Land Equity Solution
+        </h2>
+
+        <p class="grey">
+            Strategic real estate in high-growth corridors (Lekki, Ikoyi) offers dual returns: double-digit annual
+            rental yields (via long-term or short-let models) plus aggressive capital appreciation driven by rapid
+            urbanization.
+        </p>
+    </div>
+</section>
+
+<section class="q_approach">
+    <div class="oqa_box">
+        <div class="oqa wht">
+            Our Quantitative Approach
+        </div>
+        <div class="oqa_text grey">
+            How we identify and secure assets that outperform the market.
+        </div>
+    </div>
+    <div class="boxes">
+        <div class="box box1">
+            <i class="fa-solid fa-shield-halved"></i>
+            <h2 class="wht">
+                1. Legal Fortification
+            </h2>
+            <p class="grey">
+                We only list properties with verified titles (C of O, Governor's Consent). Our legal partners conduct
+                exhaustive searches at the land registry to ensure zero encumbrances.
+            </p>
+        </div>
+        <div class="box box2">
+            <i class="fa-solid fa-chart-pie"></i>
+            <h2 class="wht">
+                2. Yield Analysis
+            </h2>
+            <p class="grey">
+                Every property undergoes strict financial modeling. We project long-term rental income versus short-let
+                (Airbnb) optimization to ensure a minimum yield threshold before listing.
+            </p>
+        </div>
+        <div class="box box3">
+            <i class="fa-solid fa-arrow-trend-up"></i>
+            <h2 class="wht">
+                3. Growth Corridors
+            </h2>
+            <p class="grey">
+                We acquire data on infrastructure development—new roads, airports, and commercial hubs—to pinpoint
+                locations poised for 20%+ annual capital appreciation.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- <section class="portfolio_access">
+    <div class="cont">
+        <div class="left_b">
+
+        </div>
+        <form action="" class="right_b">
+            <h3>Request Portfolio Access</h3>
+            <div>
+                <label for=""></label>
+                <input type="text" class="text">
+            </div>
+            <div>
+                <label for=""></label>
+                <input type="text" class="text">
+            </div>
+            <div>
+                <label for=""></label>
+                <select name="" id="">
+                    <option value=""></option>
+                </select>
+                <label for=""></label>
+                <input type="text" class="text">
+            </div>
+            <div>
+                <label for=""></label>
+                <input type="text" class="text">
+            </div>
+        </form>
+    </div>
+</section> -->
+
+{% endblock %}

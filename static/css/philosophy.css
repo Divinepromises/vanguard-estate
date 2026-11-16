@@ -1,0 +1,120 @@
+/* COLORS */
+.grey{
+    color:#A39E8F;
+}
+.wht{
+    color:white;
+}
+
+
+body{
+    background-color: #09090B;
+}
+.ph_hero{
+    /* background-image: url(); */
+    background-color: #161619;
+    padding: 5rem 0;
+}
+.bigT{
+    font-size: 3.5rem;
+    margin: auto;
+    width: fit-content;
+}
+.smallT{
+    font-size: 1.2rem;
+    width: 70%;
+    text-align: center;
+    margin: auto;
+
+}
+.info{
+    padding: 6rem 2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    font-family: 'Times New Roman', Times, serif;
+}
+.wealth-trap{
+    display: flex;
+    flex-direction: column;
+    /* background-color: red; */
+    width: 47%;
+    padding: 1rem;
+    gap: 1rem;
+}
+.wealth-trap i{
+    background-color: #140B0D;
+    padding: 0.5rem;
+    width: fit-content;
+    color:#7C1D1D;
+}
+.land-equity{
+    display: flex;
+    flex-direction: column;
+    /* background-color: blue; */
+    width: 47%;
+    padding: 1rem;
+    gap: 1rem;
+
+}
+.land-equity i{
+    background-color:#1C1A15;
+    padding: 0.5rem;
+    width: fit-content;
+    color:#C9AF6E;
+}
+.info h2{
+    font-size: xx-large;
+}
+.info p{
+    font-size: larger;
+}
+
+.q_approach{
+    border-top: 1px solid #25252D;
+    padding: 3rem 2rem;
+    background-color: #0E0E11;
+
+}
+.q_approach div .oqa{
+    font-size: xx-large;
+    width: fit-content;
+    margin: auto;
+    padding-bottom: 0.5rem;
+    
+}
+.q_approach div .oqa_text{
+    font-size: larger;
+    text-align: center;
+}
+.q_approach .oqa_box{
+    margin: 0rem auto 4rem auto;
+    width: 45%;
+    /* background-color: green; */
+}
+.q_approach .boxes{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width:90%;
+    /* background-color: blue; */
+    margin: auto;
+}
+.q_approach .box{
+    border: 1px solid #25252D;
+    width: 30.4%;
+    height:15rem;
+    padding: 1rem;
+    background-color: #09090B;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.q_approach .box i{
+    color: #C9AF6E;
+    margin-bottom: 1rem;
+}
+.q_approach .box h2{
+    font-family:Georgia, 'Times New Roman', Times, serif ;
+    font-weight: lighter;
+}

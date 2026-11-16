@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Django Estate{% endblock %}
+
+{% block content %}
+<!-- The hero section -->
+<section class="hero">
+    <div class="vlt">
+        <i class="fa-solid fa-shield"></i>
+        VERIFIED LEGAL & BEST TITLES ONLY
+    </div>
+    <div class="bigText">
+        Investment in Secured High-Yield Real Estate Properties.
+    </div>
+    <div class="smallText">
+        <span class="bold">Guarante:</span> We offer high valued properties to investors that guarantees high income
+        yield. <br>
+        Access exclusive, vetted opportunities in Africa's fastest-growing wealth centers.
+    </div>
+    <div class="btns">
+        <a href="{% url 'properties' %}" id="vad">VIEW ACTIVE DEALS</a>
+        <a href="{% url 'philosophies' %}" id="op">OUR PHILOSOPHY</a>
+    </div>
+</section>
+
+
+
+
+
+<section class="f_deals">
+    <h1>Featured Deals</h1>
+    <div class="fdt">
+        <p>
+            Curated properties with verified titles and exceptional yield potential. Vetted for immediate acquisition.
+            Physical inspection arranged for every client.
+        </p>
+        <a href="{% url 'properties' %}">View All <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+    <div class="property-container">
+        <!-- 1. The Loop (For Each House in Our Box) -->
+        {% for property in properties|slice:":3" %}
+
+        <div class="property-card">
+
+            <!-- Display Main Image -->
+            {% if property.main_image %}
+
+            <img src="{{ property.main_image.url }}" alt="{{ property.title }}">
+            <div class="prop-type">{{property.property_type}}</div>
+
+            {% endif %}
+
+            <!-- Display Title and Location -->
+            <div class="house-det">
+                <h2>{{ property.title }}</h2>
+                <p class="location"><i class="fa-solid fa-location-dot"></i>{{ property.full_location }}</p>
+                <!-- Display Price -->
+                {% load humanize %}
+                <p id="prc">
+                    <span>Price</span>
+                    <span class="prc">₦{{ property.price |floatformat:2 | intcomma}}</span>
+                </p>
+
+            </div>
+
+
+            <!-- See More About Property -->
+            <a href="{% url 'property_detail' property.pk %}" class="see_more">See More About Property</a>
+        </div>
+        {% empty %}
+        <!-- What to show if no houses are in the database -->
+        <p>No properties available right now. Check back soon!</p>
+
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Default Title{% endblock %}</title>
+    <!-- Link to static CSS file -->
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome-free-7.3.1-web/css/all.min.css' %}">
+    <!-- Extra CSS -->
+    {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/property_detail.css' %}">
+    {% endblock %}
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <a class="logo" href="/">
+                    <p id="vang">Vanguard <span class="capt">CAPITAL</span> Properties</p>
+                    <p id="vlp">Verified Legal & Properties Only </p>
+                <!-- <span class="vang">VANGUARD</span> <span class="capt">CAPITAL</span> -->
+            </a>
+            <ul class="nav_links">
+                <li><a href="{% url 'home' %}"
+                        class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a></li>
+                <li><a href="{% url 'properties' %}"
+                        class="{% if request.resolver_match.url_name == 'properties' %}active{% endif %}">Properties</a>
+                </li>
+                <li><a href="{% url 'philosophies' %}"
+                        class="{% if request.resolver_match.url_name == 'philosophies' %}active{% endif %}">Investment
+                        Philosophies</a></li>
+                <li><a class="admin-trigger-link" target="_blank" style="cursor: pointer;">Admin Panel</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Admin Verification Modal Overlay -->
+        <div id="adminModal" class="admin-modal-overlay">
+            <div class="admin-modal-content">
+                <div class="key-icon-wrapper">
+                    <i class="fa-solid fa-key"></i>
+                </div>
+                <h2>VANGUARD ESTATES</h2>
+                <p class="admin-subtitle">ADMINISTRATIVE PANEL</p>
+                <p class="admin-desc">Authorized access only. This panel controls home listings, client inquiries, and site settings.</p>
+                
+                <!-- Action Button linking to Django Admin -->
+                <a href="{% url 'admin:index' %}" class="admin-btn" target="_blank">I'M AN ADMIN</a>
+                
+                <!-- Close/Cancel text -->
+                <button id="closeModal" class="close-modal-btn">Cancel</button>
+            </div>
+        </div>
+
+    <!-- Main Dynamic Content Block -->
+    <main>
+        {% block content %}
+        <!-- Child templates like index.html will inject content here -->
+        {% endblock %}
+    </main>
+
+    <!-- Shared Footer -->
+    <footer>
+        <div class="upperF">
+            <div class="box1">
+                <p class="bn">
+                    <p id="vang">Vanguard <span class="capt">CAPITAL</span> Properties</p>
+                    <p id="vlp">Verified Legal & Properties Only </p>
+                </p>
+                <p class="abb">
+                    Investment in Secured High-yield Real Estate Properties. We offer high valued properties
+                    to investors that guarantees high income yield. Access exclusive, vetted opportunities in Africa's
+                    fastest-growing wealth centers.
+                </p>
+            </div>
+            <div class="box2">
+
+                <p class="b b1">Platform</p>
+                <a href="{% url 'properties' %}" class="b g-glow">Properties</a>
+                <a href="{% url 'philosophies' %}" class="b g-glow">Investment Philosophy</a>
+            </div>
+            <div class="box3">
+                <p class="b1" id="contact">contact us</p>
+                <a class="b num g-glow" href="tel:+2347060701260"><i class="fa-solid fa-phone"></i>07060701260</a>
+                <a class="b em g-glow" href="mailto:nwauwadivinepromises25@gmail.com"><i class="fa-solid fa-envelope"></i>nwauwadivinepromises25@gmail.com</a>
+                <a href="https://wa.me/07060701260?text=Hello,%20I'm%20interested%20in%20buying%20property" target="_blank" class="b button"><i class="fa-brands fa-whatsapp"></i>Chat on whatsapp</a>
+            </div>
+        </div>
+
+        
+
+        <div class="lowerF">
+            <div class="lf">© 2026 Vanguard Capital Properties. All rights reserved.</div>
+            <div class="rf">
+                <a class="b g-glow">Privacy Policy</a>
+                <a class="b g-glow">Terms of Service</a>
+            </div>
+        </div>
+
+    </footer>
+
+
+</body>
+<!-- Link to static JS file -->
+<script src="{% static 'js/main.js' %}"></script>
+
+</html>

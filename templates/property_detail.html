@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}{{ property.title }} - Django Estate{% endblock %}
+
+{% block extra_css %}
+    <!-- Local Swiper CSS -->
+    <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
+    <!-- own css -->
+    <link rel="stylesheet" href="{% static 'css/property_detail.css' %}">
+
+{% endblock %}
+
+{% block content %}
+    <!-- Back Link -->
+    <button class="back" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i> Go Back</button>
+    
+    <div class="detail-container">
+        <div class="grp1">
+            <h2 class="prop-name">{{ property.title }}</h1>
+            <p class="prop-loc">{{ property.full_location }}</p>
+        </div>
+
+        <div class="grp2">
+            <!-- Property Specs -->
+            <p>
+                <span class="lit">Price</span>
+                <span class="more">₦{{ property.price |floatformat:2 | intcomma }}</span>
+            </p>
+            <p>
+                <span class="lit">Type</span>
+                <span class="more">{{ property.property_type }}</span>
+            </p>
+        </div>
+
+       <div class="griddy">
+            <!-- Left Side: Swiper Carousel Container -->
+            <div class="swiper myPropertySlider">
+                <div class="swiper-wrapper">
+                    {% for item in property.media_items.all %}
+                        <div class="swiper-slide">
+                            {% if item.media_type == 'image' %}
+                                <img src="{{ item.file.url }}" alt="Property Media">
+                            {% else %}
+                                <video controls>
+                                    <source src="{{ item.file.url }}" type="video/mp4">
+                                </video>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <!-- Swiper Controls MUST be inside the .swiper container -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+
+            <!-- Right Side: Property Description -->
+            <div class="desc">
+                <h2>Property Description</h2>
+                <p>{{ property.description }}</p>
+            </div>
+        </div>
+
+    <!-- Swiper JS Script -->
+    <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+    <script>
+        const swiper = new Swiper('.myPropertySlider', {
+            direction: 'horizontal',
+            loop: true,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+    </script>
+    
+{% endblock %}
