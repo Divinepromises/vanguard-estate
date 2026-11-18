@@ -118,3 +118,150 @@ body{
     font-family:Georgia, 'Times New Roman', Times, serif ;
     font-weight: lighter;
 }
+
+/* =========================================================
+   RESPONSIVE STYLES - philosophy.css only
+   Paste at the very bottom of philosophy.css.
+
+   Blocks go from widest to narrowest. This file loads AFTER
+   style.css, so its rules win over style.css's at equal
+   specificity (that is why the hero padding is handled here).
+   ========================================================= */
+
+
+/* ---------- 1200px and below: small laptops, tablets in landscape ---------- */
+@media (max-width: 1200px) {
+
+    /* The 3 boxes have a fixed height: 15rem. As they get narrower the text
+       wraps onto more lines and spills out, so let them grow with their
+       content. (They are in a flex row, so they still stay equal height.) */
+    .q_approach .box {
+        height: auto;
+        min-height: 15rem;
+    }
+}
+
+
+/* ---------- 992px and below: tablets in portrait ---------- */
+@media (max-width: 992px) {
+
+    /* Hero: .ph_hero (this file) beats .hero (style.css) because it loads
+       later, so the padding for this page is set here, not in style.css */
+    .ph_hero {
+        padding: 4rem 0;
+    }
+
+    .bigT {
+        font-size: 3rem;
+    }
+
+    .smallT {
+        width: 85%;
+        font-size: 1.1rem;
+    }
+
+    .info {
+        padding: 4rem 1.5rem;
+    }
+
+    .q_approach {
+        padding: 3rem 1.5rem;
+    }
+
+    .q_approach .oqa_box {
+        width: 70%;
+    }
+
+    /* 3 columns get too narrow here, so stack the boxes */
+    .q_approach .boxes {
+        flex-direction: column;
+        gap: 1.5rem;
+        width: 100%;
+    }
+
+    .q_approach .box {
+        width: 100%;
+        min-height: 0;
+    }
+}
+
+
+/* ---------- 768px and below: phones ---------- */
+@media (max-width: 768px) {
+
+    .ph_hero {
+        padding: 3rem 1.5rem;
+    }
+
+    .bigT {
+        font-size: 2.2rem;
+        text-align: center;
+    }
+
+    .smallT {
+        width: 100%;
+        font-size: 1rem;
+    }
+
+    /* The two columns (Wealth Trap / Land Equity) stack */
+    .info {
+        flex-direction: column;
+        gap: 2rem;
+        padding: 3rem 1.5rem;
+    }
+
+    .wealth-trap,
+    .land-equity {
+        width: 100%;
+        padding: 0;
+    }
+
+    .info h2 {
+        font-size: 1.6rem;
+    }
+
+    .info p {
+        font-size: 1.05rem;
+    }
+
+    /* Approach section */
+    .q_approach .oqa_box {
+        width: 100%;
+        margin-bottom: 2.5rem;
+    }
+
+    .q_approach div .oqa {
+        font-size: 1.6rem;
+        text-align: center;
+    }
+
+    .q_approach div .oqa_text {
+        font-size: 1.05rem;
+    }
+
+    .q_approach .box h2 {
+        font-size: 1.25rem;
+    }
+}
+
+
+/* ---------- 480px and below: small phones ---------- */
+@media (max-width: 480px) {
+
+    .ph_hero {
+        padding: 2.5rem 1rem;
+    }
+
+    .bigT {
+        font-size: 1.9rem;
+    }
+
+    .info,
+    .q_approach {
+        padding: 2.5rem 1rem;
+    }
+
+    .q_approach div .oqa {
+        font-size: 1.4rem;
+    }
+}

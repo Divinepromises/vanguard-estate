@@ -25,7 +25,12 @@
                     <p id="vlp">Verified Legal & Properties Only </p>
                 <!-- <span class="vang">VANGUARD</span> <span class="capt">CAPITAL</span> -->
             </a>
-            <ul class="nav_links">
+            <button class="nav-toggle" id="navToggle" type="button"
+                    aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <ul class="nav_links" id="navLinks">
                 <li><a href="{% url 'home' %}"
                         class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a></li>
                 <li><a href="{% url 'properties' %}"

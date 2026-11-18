@@ -138,3 +138,130 @@
     color: #969184;
 }
 
+/* =========================================================
+   RESPONSIVE STYLES - property_detail.css only
+   Paste at the very bottom of property_detail.css.
+
+   This file loads AFTER style.css and swiper-bundle.min.css on the
+   detail page, so a rule here with the same selector as the base
+   rule wins on its own (no !important needed).
+   Blocks go from widest to narrowest.
+   ========================================================= */
+
+
+/* ---------- 1200px and below: small laptops, tablets in landscape ---------- */
+@media (max-width: 1200px) {
+
+    /* Price / Type boxes: 20% of the width gets too small for a long price
+       like ₦1,250,000,000.00, so size them by content with a minimum. */
+    .detail-container .grp2 p {
+        width: auto;
+        min-width: 14rem;
+    }
+}
+
+
+/* ---------- 992px and below: tablets in portrait ---------- */
+@media (max-width: 992px) {
+
+    /* The nav no longer floats over the page at this size (see style.css),
+       so the Back button needs its own space above it */
+    .back {
+        margin-top: 1rem;
+    }
+
+    /* Slider on top, description underneath.
+       Explicit gap in rem: the base rule's gap: 5% is a percentage, and in a
+       column layout a percentage gap is measured against the height, which
+       is not fixed here. */
+    .detail-container .griddy {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .swiper.myPropertySlider {
+        width: 100%;
+        height: 420px;
+    }
+
+    /* max-height: 480px + hidden scrollbar would cut long descriptions off
+       with no hint that there's more, so let it show in full when stacked */
+    .detail-container .griddy .desc {
+        width: 100%;
+        max-height: none;
+    }
+}
+
+
+/* ---------- 768px and below: phones ---------- */
+@media (max-width: 768px) {
+
+    /* Back button's left margin matches the container's padding */
+    .back {
+        margin-left: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .detail-container {
+        padding: 1.5rem;
+    }
+
+    .detail-container .grp1 .prop-name {
+        font-size: 1.6rem;
+    }
+
+    .detail-container .grp1 .prop-loc {
+        font-size: 1rem;
+    }
+
+    /* Price and Type boxes stack, full width */
+    .detail-container .grp2 {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .detail-container .grp2 p {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .detail-container .grp2 .more {
+        overflow-wrap: anywhere;
+    }
+
+    /* Shorter slider, smaller arrows. Swiper sizes its arrows with this
+       variable, so set it here rather than fighting the !important rules. */
+    .swiper.myPropertySlider {
+        height: 320px;
+        --swiper-navigation-size: 36px;
+    }
+
+    .detail-container .griddy .desc {
+        padding: 1.25rem;
+    }
+}
+
+
+/* ---------- 480px and below: small phones ---------- */
+@media (max-width: 480px) {
+
+    .back {
+        margin-left: 1rem;
+    }
+
+    .detail-container {
+        padding: 1rem;
+    }
+
+    .detail-container .grp1 .prop-name {
+        font-size: 1.4rem;
+    }
+
+    .swiper.myPropertySlider {
+        height: 240px;
+    }
+
+    .detail-container .griddy .desc {
+        padding: 1rem;
+    }
+}

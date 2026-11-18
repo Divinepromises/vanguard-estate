@@ -3,3 +3,5 @@ gunicorn
 whitenoise
 psycopg2-binary
 Pillow
+cloudinary
+dj3-cloudinary-storage

@@ -40,7 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    # ... other apps
+    # Cloudinary Apps (Required for cloud image storage)
+    'cloudinary_storage',
+    'cloudinary',
+    
+    # Other apps
     'django.contrib.humanize',
     
     # Your custom app
@@ -148,3 +152,20 @@ MEDIA_URL = '/media/'
 
 # Local directory on your hard drive where Django saves uploaded photos
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+# --- CLOUDINARY CONFIGURATION ---
+import cloudinary
+import cloudinary.uploader
+import cloudinary.utils
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'r7jeevdk',
+    'API_KEY': '316861432515863',
+    'API_SECRET': 'XU7kNSL0yGsrWDHv86tLSqo0Hiw', # Replace this with your secret key from your Cloudinary dashboard
+    'SECURE': True,
+}
+
+# Tells Django to send all image/media uploads directly to Cloudinary
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
