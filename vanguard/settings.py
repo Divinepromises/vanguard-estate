@@ -168,4 +168,19 @@ CLOUDINARY_STORAGE = {
 }
 
 # Tells Django to send all image/media uploads directly to Cloudinary
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# --- CLOUDINARY & WHITE-NOISE STORAGES CONFIGURATION ---
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'r7jeevdk',
+    'API_KEY': '316861432515863',
+    'API_SECRET': 'XU7kNSL0yGsrWDHv86tLSqo0Hiw',
+    'SECURE': True,
+}
+
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
