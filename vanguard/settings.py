@@ -10,8 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.1/ref/settings/
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
+import cloudinary
+import cloudinary.uploader
+import cloudinary.utils
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,10 +25,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-42gb=(wqw84a&vjcg@+0qotbyiyl=bh$#8d1zxib&z^4*_!eo!'
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY',
+    'django-insecure-42gb=(wqw84a&vjcg@+0qotbyiyl=bh$#8d1zxib&z^4*_!eo!',
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
 
 # Updated for Render deployment and local testing
 ALLOWED_HOSTS = ['.onrender.com', '127.0.0.1', 'localhost']
@@ -39,21 +46,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     # Cloudinary Apps (Required for cloud image storage)
     'cloudinary_storage',
     'cloudinary',
-    
+
     # Other apps
     'django.contrib.humanize',
-    
+
     # Your custom app
     'properties',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # <--- Add this line right here!
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -67,7 +74,7 @@ ROOT_URLCONF = 'vanguard.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # <-- Updated line
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -86,10 +93,10 @@ WSGI_APPLICATION = 'vanguard.wsgi.application'
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,
+    )
 }
 
 
@@ -154,33 +161,19 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
-
-# --- CLOUDINARY CONFIGURATION ---
-import cloudinary
-import cloudinary.uploader
-import cloudinary.utils
-
+# --- CLOUDINARY & WHITENOISE STORAGES CONFIGURATION ---
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'r7jeevdk',
-    'API_KEY': '316861432515863',
-    'API_SECRET': 'XU7kNSL0yGsrWDHv86tLSqo0Hiw', # Replace this with your secret key from your Cloudinary dashboard
-    'SECURE': True,
-}
-
-# Tells Django to send all image/media uploads directly to Cloudinary
-# --- CLOUDINARY & WHITE-NOISE STORAGES CONFIGURATION ---
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'r7jeevdk',
-    'API_KEY': '316861432515863',
-    'API_SECRET': 'XU7kNSL0yGsrWDHv86tLSqo0Hiw',
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME', 'r7jeevdk'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY', '316861432515863'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET', 'XU7kNSL0yGsrWDHv86tLSqo0Hiw'),
     'SECURE': True,
 }
 
 STORAGES = {
-    "default": {
-        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    'default': {
+        'BACKEND': 'cloudinary_storage.storage.MediaCloudinaryStorage',
     },
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage", # Changed from CompressedManifestStaticFilesStorage
+    'staticfiles': {
+        'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage',
     },
 }

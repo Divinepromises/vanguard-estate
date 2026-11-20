@@ -293,10 +293,38 @@ h1{
     height:40rem;
     position: relative;
 }  
-.property-card img {
+/* Image area: a fixed-size box that is ALWAYS there, with or without a photo.
+   Its height (60% of the card) is what keeps the card's shape. */
+.property-card .img-box {
+    position: relative;
     width: 100%;
     height: 60%;
     margin-bottom: 1rem;
+    background-color: #1A1A1F;
+    overflow: hidden;
+}
+/* Placeholder: fills the box, sits behind the photo */
+.property-card .img-fallback {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: #5C5A52;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.property-card .img-fallback i {
+    font-size: 2.5rem;
+}
+/* The photo fills the box and covers the placeholder */
+.property-card img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 .property-card .prop-type{
     position: absolute;
@@ -934,16 +962,15 @@ footer .lowerF .rf{
     }
 
     /* Property cards: one per row.
-       The image's height: 60% only works when the card has a fixed height,
-       so with height: auto the image needs its own height. */
+       The image box's height: 60% only works when the card has a fixed height,
+       so with height: auto the box needs its own height. */
     .property-card {
         width: 100%;
         height: auto;
     }
 
-    .property-card img {
+    .property-card .img-box {
         height: 15rem;
-        object-fit: cover;
     }
 
     .property-card .house-det {

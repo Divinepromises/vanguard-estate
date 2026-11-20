@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
+{% load static %}
 
 
 {% block title %}Properties - Django Estate{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pagination.css' %}">
+{% endblock %}
 
 {% block content %}
 <!-- The hero section -->
@@ -17,7 +22,7 @@
     <input class="search-bar" type="search" placeholder="Search  by Location(e.g Okoyi, Lekki)..." value="{{request.GET.search}}" name="search">
     <i class="fa-solid fa-search"></i>
 
-    <select class="filter-type" name="property_type" on_change="this.form.submit()">
+    <select class="filter-type" name="property_type" onchange="this.form.submit()">
         <option value="" >All types</option>
         {% for key, label in property_types %}
         <option value="{{ key }}" {% if request.GET.property_type == key %}selected{% endif %}>
@@ -42,12 +47,19 @@
         <div class="property-card">
     
             <!-- Display Main Image -->
-            {% if property.main_image %}
-            
-            <img src="{{ property.main_image.url }}" alt="{{ property.title }}" >
-            <div class="prop-type">{{property.property_type}}</div>
-        
-            {% endif %}
+            <!-- Image area: ALWAYS rendered, so the card keeps its shape with or without a photo -->
+            <div class="img-box">
+                <!-- Placeholder: sits behind the photo, only visible when there is no photo or it fails to load -->
+                <div class="img-fallback">
+                    <i class="fa-solid fa-image"></i>
+                    <span>Photo unavailable</span>
+                </div>
+                {% if property.main_image %}
+                <!-- onerror: if the file is missing/broken, hide the <img> so no broken icon or alt text shows -->
+                <img src="{{ property.main_image.url }}" alt="{{ property.title }}" onerror="this.style.display='none'">
+                {% endif %}
+            </div>
+            <div class="prop-type">{{ property.property_type }}</div>
     
             <!-- Display Title and Location -->
             <div class="house-det">
@@ -72,4 +84,42 @@
         {% endfor %}
     </div>
 </section>
+
+<!-- Pagination bar. A <div>, not a <nav>: style.css styles every <nav> as the fixed top bar -->
+{% if page_obj.has_other_pages %}
+<div class="pagination" role="navigation" aria-label="Property pages">
+
+    <!-- Previous -->
+    {% if page_obj.has_previous %}
+    <a class="page-link" aria-label="Previous page"
+        href="?{% if query_string %}{{ query_string }}&{% endif %}page={{ page_obj.previous_page_number }}">
+        <i class="fa-solid fa-arrow-left"></i><span class="pg-text">Prev</span>
+    </a>
+    {% else %}
+    <span class="page-link disabled"><i class="fa-solid fa-arrow-left"></i><span class="pg-text">Prev</span></span>
+    {% endif %}
+
+    <!-- Page numbers (page_range comes from the view) -->
+    {% for num in page_range %}
+        {% if num == page_obj.paginator.ELLIPSIS %}
+        <span class="page-link dots">&hellip;</span>
+        {% elif num == page_obj.number %}
+        <span class="page-link current" aria-current="page">{{ num }}</span>
+        {% else %}
+        <a class="page-link" href="?{% if query_string %}{{ query_string }}&{% endif %}page={{ num }}">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+
+    <!-- Next -->
+    {% if page_obj.has_next %}
+    <a class="page-link" aria-label="Next page"
+        href="?{% if query_string %}{{ query_string }}&{% endif %}page={{ page_obj.next_page_number }}">
+        <span class="pg-text">Next</span><i class="fa-solid fa-arrow-right"></i>
+    </a>
+    {% else %}
+    <span class="page-link disabled"><span class="pg-text">Next</span><i class="fa-solid fa-arrow-right"></i></span>
+    {% endif %}
+
+</div>
+{% endif %}
 {% endblock %}
